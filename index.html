@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#11120f">
+  <meta name="description" content="秦铭的个人作品集：账号运营、拍摄剪辑、网页 / H5 / APP 设计。">
+  <meta property="og:title" content="秦铭 · 内容作品集">
+  <meta property="og:description" content="账号运营、拍摄剪辑、网页 / H5 / APP 设计。">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="media/portrait.webp">
+  <title>秦铭 · 内容作品集</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  <header class="site-nav" id="siteNav">
+    <div class="nav-inner">
+      <a class="brand" href="#hero"><span class="brand-dot"></span><span id="brandName">你的名字</span> / <span id="brandLabel">ARCHIVE</span></a>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="打开导航">菜单</button>
+      <nav class="nav-links" id="navLinks" aria-label="主导航">
+        <a href="#hero">HOME</a><a href="#about">ABOUT</a><a href="#experience">EXPERIENCE</a><a href="#projects">PROJECTS</a><a href="#moving-image">ARCHIVE</a><a href="#contact">CONTACT</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero scene" id="hero">
+      <div class="hero-content page-shell">
+        <div class="hero-copy">
+          <p class="status-pill" id="personLocation">YOUR CITY · ONLINE</p>
+          <p class="hero-name" id="personName">你的名字</p>
+          <h1 id="heroTagline"><span>把复杂问题</span><span class="accent">做成好玩的作品。</span></h1>
+          <p class="hero-role" id="personRole"></p>
+          <div class="chip-row" id="personChips"></div>
+          <div class="hero-stats" id="heroStats"></div>
+          <p class="hero-intro" id="personIntro"></p>
+          <div class="hero-actions" id="heroActions"></div>
+        </div>
+        <figure class="portrait-wrap">
+          <img id="portrait" src="media/portrait.webp" alt="秦铭的个人照片" width="900" height="1100">
+          <figcaption>QIN MING / 2026</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="about scene" id="about">
+      <div class="page-shell section-shell">
+        <div class="section-heading">
+          <p class="eyebrow">PLAYER PROFILE · 01</p>
+          <h2>不只是简历，<br><span>是我把内容做成结果的方式。</span></h2>
+        </div>
+        <div class="about-grid" id="aboutGrid"></div>
+      </div>
+    </section>
+
+    <section class="experience scene" id="experience">
+      <div class="page-shell section-shell experience-layout">
+        <div class="section-heading sticky-heading">
+          <p class="eyebrow">MY MAP · 02</p>
+          <h2>一路拍摄，<br><span>收集不同账号的反馈。</span></h2>
+          <p>用结果说话，用过程说明一条内容是怎么被做出来的。</p>
+        </div>
+        <div class="timeline" id="experienceList"></div>
+      </div>
+    </section>
+
+    <section class="projects scene" id="projects">
+      <div class="page-shell section-shell">
+        <div class="section-heading wide-heading">
+          <p class="eyebrow">SELECTED WORKS · 03</p>
+          <h2>把想法做出来，<br><span>然后用数据回答。</span></h2>
+        </div>
+        <div class="project-grid" id="projectGrid"></div>
+      </div>
+    </section>
+
+    <section class="moving-image scene" id="moving-image" aria-label="作品档案">
+      <div class="page-shell media-shell">
+        <div class="media-title-row"><p class="eyebrow">WORK ARCHIVE · 04</p><p>影像、网页、H5 和 APP，都放在这里。</p></div>
+        <div class="media-stage">
+          <div class="media-frame" id="mediaFrame"></div>
+          <aside class="media-info">
+            <p class="media-date" id="mediaDate"></p>
+            <div class="media-metrics" id="mediaMetrics"></div>
+            <p class="media-label" id="mediaLabel"></p>
+            <h2 id="mediaTitle"></h2>
+            <p class="media-description" id="mediaDescription"></p>
+            <a class="source-link" id="mediaSource" href="#" target="_blank" rel="noreferrer">查看原作 ↗</a>
+          </aside>
+        </div>
+        <div class="carousel-controls" aria-label="影像作品切换">
+          <button id="mediaPrev" type="button" aria-label="上一件作品">←</button>
+          <div class="carousel-progress"><strong id="mediaCurrent">01</strong><span>/</span><span id="mediaTotal">03</span><div class="media-dots" id="mediaDots"></div></div>
+          <button id="mediaNext" type="button" aria-label="下一件作品">→</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact scene" id="contact">
+      <div class="page-shell contact-layout">
+        <div class="contact-copy">
+          <p class="eyebrow">OPEN FOR CONNECTION · 05</p>
+          <h2 id="contactHeading"></h2>
+          <p id="contactDescription"></p>
+          <div class="contact-actions">
+            <a id="emailLink" href="mailto:hello@example.com"></a>
+            <a id="socialLink" href="#" target="_blank" rel="noreferrer"></a>
+          </div>
+        </div>
+        <figure class="qr-card"><img id="contactQr" alt="联系二维码" width="500" height="500"><figcaption>SCAN TO CONNECT ↗</figcaption></figure>
+      </div>
+    </section>
+  </main>
+
+  <footer><p><span id="footerName">你的名字</span> · BUILT WITH CURIOSITY</p></footer>
+  <script src="content.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
