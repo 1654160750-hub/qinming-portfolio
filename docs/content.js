@@ -18,8 +18,8 @@ window.SITE_CONTENT = {
     chips: ["拍摄", "剪辑", "编导", "账号运营", "H5 / 网页"]
   },
   stats: [
-    { value: "5w+", label: "单条视频点赞" },
-    { value: "2000+", label: "起号粉丝（2 个账号）" },
+    { value: "10w+", label: "单条视频点赞" },
+    { value: "2000+", label: "起号粉丝" },
     { value: "5000人", label: "线上直播运营" }
   ],
   actions: [
@@ -114,6 +114,7 @@ window.SITE_CONTENT = {
       id: "editing", no: "04", title: "剪辑作品", en: "VIDEO EDITING",
       intro: "知识类剪辑、品牌视频号封面与直播切片、口播视频。",
       items: [
+        { title: "北京舞之美：艺考 10w 赞视频", platform: "北京舞之美 · 舞蹈艺考", description: "舞蹈艺考类账号的选题、拍摄与剪辑，围绕艺考测评与课堂场景制作内容，产出单条点赞 10w+ 的爆款视频。", poster: "media/work-dance.webp", video: "", originalUrl: "", metrics: ["10w+ 点赞", "选题 / 拍摄 / 剪辑"] },
         { title: "苹果为何会成为伊甸园禁果？", platform: "知识类 · 剪辑 / 封面", description: "知识类视频的剪辑与封面包装。用拼贴、手绘和高对比标题，把知识点变成愿意点开的画面。", poster: "media/work-knowledge.webp", video: "", originalUrl: "", metrics: ["剪辑", "封面包装"] },
         { title: "新东方口播：教育是场马拉松", platform: "新东方 · 口播视频", description: "完成口播视频的拍摄与剪辑，处理人物状态、字幕节奏和画面包装，让长表达更适合短视频观看。", poster: "media/work-xdf.webp", video: "", originalUrl: "", metrics: ["拍摄", "剪辑"] },
         { title: "联想智库视频号", platform: "品牌视频号 · 封面 / 直播切片", description: "为联想智库视频号制作封面并剪辑直播切片，把长直播内容拆成适合传播的短视频。", poster: "", video: "", originalUrl: "", metrics: ["封面制作", "直播切片"] }
@@ -123,6 +124,7 @@ window.SITE_CONTENT = {
       id: "web", no: "05", title: "网页作品", en: "WEB PAGES",
       intro: "独立完成的可交互网页与宣传页面。",
       items: [
+        { title: "正在展示的作品集网站", platform: "网页制作 · Vibe Coding", description: "你现在看到的这个网站本身就是作品：用 Vibe Coding 的方式，通过自然语言与 AI 协作完成设计、排版与代码，并部署到 GitHub Pages。", poster: "media/work-web-portfolio.webp", video: "", originalUrl: "https://1654160750-hub.github.io/qinming-portfolio/", metrics: ["Vibe Coding", "GitHub Pages"] },
         { title: "《三班，不一般》可交互网页", platform: "网页制作 · 班级纪念", description: "把班级照片、人物和故事组织成可交互的纪念网页，用滚动和点击让一群人的三年重新被看见。", poster: "media/work-web-sanban.webp", video: "", originalUrl: "", metrics: ["网页编程", "可交互"] },
         { title: "《白夜追凶》宣传网页", platform: "网页制作 · 影视宣传", description: "围绕剧集角色关系和名场面做宣传网页，用大图、分栏和章节导航还原悬疑气质。", poster: "media/work-web-baiye.webp", video: "", originalUrl: "", metrics: ["网页编程", "影视宣传"] },
         { title: "《瓜田之下》PDF 吃瓜研究网页", platform: "网页制作 · 网络暴力研究", description: "以「PDF 吃瓜」为切口讨论网络暴力，把研究内容做成可浏览的长页面，从案例、传播特点到管理建议逐层展开。", poster: "media/work-web-guagua.webp", video: "", originalUrl: "", metrics: ["网页编程", "议题研究"] }
