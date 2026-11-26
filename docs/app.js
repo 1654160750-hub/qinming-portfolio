@@ -20,18 +20,18 @@
   const descriptionMeta = $('meta[name="description"]');
   if (descriptionMeta) descriptionMeta.content = data.meta.description;
 
-  setText("#brandName", data.person.name.toUpperCase());
+  setText("#brandName", data.person.name);
   setText("#brandLabel", data.person.archiveLabel);
   setText("#personLocation", data.person.location);
   setText("#personName", data.person.name);
   setText("#personRole", data.person.role);
   setText("#personIntro", data.person.intro);
-  setText("#footerName", data.person.name.toUpperCase());
+  setText("#footerName", data.person.name);
+
   const heroTagline = $("#heroTagline");
-  heroTagline.replaceChildren(...data.person.tagline.map((line, index) => {
-    const span = make("span", index ? "accent" : "", line);
-    return span;
-  }));
+  heroTagline.replaceChildren(...data.person.tagline.map((line, index) =>
+    make("span", index ? "accent" : "", line)
+  ));
   const portrait = $("#portrait");
   portrait.src = data.person.portrait;
   portrait.alt = data.person.portraitAlt;
@@ -53,8 +53,39 @@
     heroActions.append(link);
   });
 
-  const aboutGrid = $("#aboutGrid");
-  data.about.forEach(item => {
+  // 01 简历：基本信息 + 教育背景 + 工作经历
+  const basics = $("#resumeBasics");
+  data.resume.basics.forEach(item => {
+    const cell = make("div", "basic-cell");
+    cell.append(make("dt", "", item.label), make("dd", "", item.value));
+    basics.append(cell);
+  });
+
+  const edu = data.resume.education;
+  const eduCard = $("#resumeEdu");
+  eduCard.append(
+    make("p", "edu-period", edu.period),
+    make("h3", "", edu.school),
+    make("p", "edu-major", edu.major),
+    make("p", "edu-detail", edu.detail),
+    make("p", "edu-courses", edu.courses)
+  );
+
+  const jobs = $("#resumeJobs");
+  data.resume.jobs.forEach(job => {
+    const row = make("article", "job");
+    const body = make("div");
+    body.append(make("h3", "", job.organization), make("p", "job-role", job.role));
+    const points = make("ul", "job-points");
+    job.points.forEach(point => points.append(make("li", "", point)));
+    body.append(points);
+    row.append(make("p", "job-period", job.period), body);
+    jobs.append(row);
+  });
+
+  // 02 个人技能
+  const skillGrid = $("#skillGrid");
+  data.skills.forEach(item => {
     const card = make("article", "about-card");
     card.append(
       make("p", "about-index", item.index),
@@ -62,50 +93,95 @@
       make("p", "about-subtitle", item.subtitle),
       make("p", "", item.description)
     );
-    aboutGrid.append(card);
+    skillGrid.append(card);
   });
 
-  const experienceList = $("#experienceList");
-  data.experience.forEach(item => {
-    const row = make("article", "timeline-item");
-    const content = make("div");
-    content.append(
-      make("h3", "", item.organization),
-      make("p", "timeline-role", item.role),
-      make("p", "timeline-result", item.result)
-    );
-    const metrics = make("div", "metric-row");
-    item.metrics.forEach(metric => metrics.append(make("span", "metric-chip", metric)));
-    content.append(metrics);
-    row.append(make("p", "timeline-period", item.period), content);
-    experienceList.append(row);
-  });
-
-  const projectGrid = $("#projectGrid");
-  data.projects.forEach(item => {
-    const hasUrl = usableUrl(item.url);
-    const card = make(hasUrl ? "a" : "article", "project-card");
-    if (hasUrl) {
-      card.href = item.url;
-      if (/^https?:/i.test(item.url)) {
-        card.target = "_blank";
-        card.rel = "noreferrer";
-      }
-    }
-    const result = make("div", "project-result");
-    result.append(make("strong", "", item.metric), make("span", "", item.metricLabel));
-    const tags = make("div", "tag-row");
-    item.tags.forEach(tag => tags.append(make("span", "tag", tag)));
+  // 03 账号运营
+  const accountGrid = $("#accountGrid");
+  data.accounts.forEach(item => {
+    const card = make("article", "account-card");
     card.append(
-      make("p", "project-kind", item.kind),
-      make("h3", "", item.title),
-      make("p", "project-description", item.description),
-      result,
-      tags
+      make("p", "account-period", item.period),
+      make("h3", "", item.organization),
+      make("p", "account-role", item.role),
+      make("p", "account-desc", item.description)
     );
-    projectGrid.append(card);
+    const result = make("div", "account-metric");
+    result.append(make("strong", "", item.metric), make("span", "", item.metricLabel));
+    const tags = make("div", "metric-row");
+    item.tags.forEach(tag => tags.append(make("span", "metric-chip", tag)));
+    card.append(result, tags);
+    accountGrid.append(card);
   });
 
+  // 04–08 作品板块：剪辑 / 网页 / H5 / APP / 自媒体
+  function workMedia(item) {
+    const frame = make("div", "work-media");
+    if (usableUrl(item.video)) {
+      const video = document.createElement("video");
+      video.controls = true;
+      video.playsInline = true;
+      video.preload = "none";
+      if (item.poster) video.poster = item.poster;
+      video.src = item.video;
+      video.setAttribute("aria-label", `播放：${item.title}`);
+      frame.append(video);
+    } else if (item.poster) {
+      const image = document.createElement("img");
+      image.src = item.poster;
+      image.alt = `${item.title} 作品封面`;
+      image.loading = "lazy";
+      image.decoding = "async";
+      image.width = 1200;
+      image.height = 750;
+      frame.append(image);
+    }
+    return frame;
+  }
+
+  function workCard(item) {
+    const card = make("article", `work-card${item.poster || usableUrl(item.video) ? "" : " text-card"}`);
+    if (item.poster || usableUrl(item.video)) card.append(workMedia(item));
+    const body = make("div", "work-body");
+    body.append(
+      make("p", "work-platform", item.platform),
+      make("h3", "", item.title),
+      make("p", "work-desc", item.description)
+    );
+    if (item.metrics && item.metrics.length) {
+      const metrics = make("div", "metric-row");
+      item.metrics.forEach(metric => metrics.append(make("span", "metric-chip", metric)));
+      body.append(metrics);
+    }
+    if (usableUrl(item.originalUrl)) {
+      const source = make("a", "source-link", "查看原作 ↗");
+      source.href = item.originalUrl;
+      source.target = "_blank";
+      source.rel = "noreferrer";
+      body.append(source);
+    }
+    card.append(body);
+    return card;
+  }
+
+  const workRoot = $("#workSections");
+  data.workSections.forEach((section, index) => {
+    const scene = make("section", `work-section scene${index % 2 ? " alt" : ""}`);
+    scene.id = section.id;
+    const shell = make("div", "page-shell section-shell");
+    const heading = make("div", "section-heading");
+    heading.append(make("p", "eyebrow", `${section.en} · ${section.no}`), make("h2", "", section.title));
+    if (section.intro) heading.append(make("p", "", section.intro));
+    shell.append(heading);
+    const single = section.items.length === 1;
+    const grid = make("div", single ? "work-feature" : "work-grid");
+    section.items.forEach(item => grid.append(workCard(item)));
+    shell.append(grid);
+    scene.append(shell);
+    workRoot.append(scene);
+  });
+
+  // 09 联系方式
   setText("#contactHeading", data.contact.heading);
   setText("#contactDescription", data.contact.description);
   const emailLink = $("#emailLink");
@@ -115,17 +191,8 @@
   socialLink.textContent = data.contact.socialLabel;
   socialLink.href = data.contact.socialUrl;
   socialLink.hidden = !usableUrl(data.contact.socialUrl);
-  const contactQr = $("#contactQr");
-  const qrCard = contactQr ? contactQr.closest(".qr-card") : null;
-  const hasQr = Boolean(data.contact.qr);
-  if (qrCard) qrCard.hidden = !hasQr;
-  const contactLayout = $(".contact-layout");
-  if (contactLayout && !hasQr) contactLayout.classList.add("no-qr");
-  if (contactQr && hasQr) {
-    contactQr.src = data.contact.qr;
-    contactQr.alt = data.contact.qrAlt;
-  }
 
+  // 导航与滚动
   const menuToggle = $("#menuToggle");
   const navLinks = $("#navLinks");
   const closeMenu = () => {
@@ -158,96 +225,4 @@
   };
   addEventListener("scroll", updateProgress, { passive: true });
   updateProgress();
-
-  let mediaIndex = 0;
-  let touchStartX = 0;
-  let touchStartY = 0;
-  let wheelLocked = false;
-  const mediaFrame = $("#mediaFrame");
-  const mediaDots = $("#mediaDots");
-  const mobileVideo = matchMedia("(max-width: 760px)");
-
-  data.mediaWorks.forEach((_, index) => {
-    const dot = make("button", "media-dot");
-    dot.type = "button";
-    dot.setAttribute("aria-label", `查看第 ${index + 1} 件影像作品`);
-    dot.addEventListener("click", () => renderMedia(index));
-    mediaDots.append(dot);
-  });
-  setText("#mediaTotal", String(data.mediaWorks.length).padStart(2, "0"));
-
-  function renderMedia(nextIndex) {
-    const previousVideo = mediaFrame.querySelector("video");
-    if (previousVideo) previousVideo.pause();
-    mediaIndex = Math.max(0, Math.min(nextIndex, data.mediaWorks.length - 1));
-    const work = data.mediaWorks[mediaIndex];
-    mediaFrame.replaceChildren();
-
-    if (work.video) {
-      const video = document.createElement("video");
-      video.controls = true;
-      video.playsInline = true;
-      video.preload = "metadata";
-      video.poster = work.poster;
-      video.src = mobileVideo.matches && work.mobileVideo ? work.mobileVideo : work.video;
-      video.setAttribute("aria-label", `播放：${work.title}`);
-      const note = make("p", "media-placeholder-note", "正在准备播放");
-      video.addEventListener("canplay", () => note.remove());
-      video.addEventListener("error", () => { note.textContent = "加载失败，请重试或查看原作"; });
-      mediaFrame.append(video, note);
-    } else {
-      const image = document.createElement("img");
-      image.src = work.poster;
-      image.alt = `${work.title} 作品封面`;
-      image.width = 1600;
-      image.height = 900;
-      mediaFrame.append(image);
-      if (work.note) mediaFrame.append(make("p", "media-placeholder-note", work.note));
-    }
-
-    setText("#mediaDate", work.date);
-    setText("#mediaLabel", `${work.platform} · ${work.duration}`);
-    setText("#mediaTitle", work.title);
-    setText("#mediaDescription", work.description);
-    setText("#mediaCurrent", String(mediaIndex + 1).padStart(2, "0"));
-    const metrics = $("#mediaMetrics");
-    metrics.replaceChildren();
-    work.metrics.forEach(metric => {
-      const item = make("div", "media-metric");
-      item.append(make("strong", "", metric.value), make("span", "", metric.label));
-      metrics.append(item);
-    });
-    const source = $("#mediaSource");
-    source.href = work.originalUrl || "#";
-    source.hidden = !usableUrl(work.originalUrl);
-    [...mediaDots.children].forEach((dot, index) => dot.classList.toggle("active", index === mediaIndex));
-    $("#mediaPrev").disabled = mediaIndex === 0;
-    $("#mediaNext").disabled = mediaIndex === data.mediaWorks.length - 1;
-  }
-
-  $("#mediaPrev").addEventListener("click", () => renderMedia(mediaIndex - 1));
-  $("#mediaNext").addEventListener("click", () => renderMedia(mediaIndex + 1));
-  mediaFrame.addEventListener("touchstart", event => {
-    touchStartX = event.touches[0].clientX;
-    touchStartY = event.touches[0].clientY;
-  }, { passive: true });
-  mediaFrame.addEventListener("touchend", event => {
-    const dx = event.changedTouches[0].clientX - touchStartX;
-    const dy = event.changedTouches[0].clientY - touchStartY;
-    if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.25) renderMedia(mediaIndex + (dx < 0 ? 1 : -1));
-  }, { passive: true });
-  $("#moving-image").addEventListener("wheel", event => {
-    if (wheelLocked || Math.abs(event.deltaX) < 38 || Math.abs(event.deltaX) < Math.abs(event.deltaY)) return;
-    event.preventDefault();
-    wheelLocked = true;
-    renderMedia(mediaIndex + (event.deltaX > 0 ? 1 : -1));
-    setTimeout(() => { wheelLocked = false; }, 620);
-  }, { passive: false });
-  addEventListener("keydown", event => {
-    if (!["ArrowLeft", "ArrowRight"].includes(event.key)) return;
-    const rect = $("#moving-image").getBoundingClientRect();
-    if (rect.bottom <= 0 || rect.top >= innerHeight) return;
-    renderMedia(mediaIndex + (event.key === "ArrowRight" ? 1 : -1));
-  });
-  renderMedia(0);
 })();
