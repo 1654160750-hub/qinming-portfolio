@@ -113,6 +113,7 @@ window.SITE_CONTENT = {
     {
       id: "editing", no: "04", title: "剪辑作品", en: "VIDEO EDITING",
       intro: "知识类剪辑、品牌视频号封面与直播切片、口播视频。",
+      illo: "media/illo-editing.png",
       items: [
         { title: "北京舞之美：艺考 10w 赞视频", platform: "北京舞之美 · 舞蹈艺考", description: "舞蹈艺考类账号的选题、拍摄与剪辑，围绕艺考测评与课堂场景制作内容，产出单条点赞 10w+ 的爆款视频。", poster: "media/work-dance.webp", video: "", originalUrl: "", metrics: ["10w+ 点赞", "选题 / 拍摄 / 剪辑"] },
         { title: "苹果为何会成为伊甸园禁果？", platform: "知识类 · 剪辑 / 封面", description: "知识类视频的剪辑与封面包装。用拼贴、手绘和高对比标题，把知识点变成愿意点开的画面。", poster: "media/work-knowledge.webp", video: "", originalUrl: "", metrics: ["剪辑", "封面包装"] },
@@ -123,6 +124,7 @@ window.SITE_CONTENT = {
     {
       id: "web", no: "05", title: "网页作品", en: "WEB PAGES",
       intro: "独立完成的可交互网页与宣传页面。",
+      illo: "media/illo-web.png",
       items: [
         { title: "正在展示的作品集网站", platform: "网页制作 · Vibe Coding", description: "你现在看到的这个网站本身就是作品：用 Vibe Coding 的方式，通过自然语言与 AI 协作完成设计、排版与代码，并部署到 GitHub Pages。", poster: "media/work-web-portfolio.webp", video: "", originalUrl: "https://1654160750-hub.github.io/qinming-portfolio/", metrics: ["Vibe Coding", "GitHub Pages"] },
         { title: "《三班，不一般》可交互网页", platform: "网页制作 · 班级纪念", description: "把班级照片、人物和故事组织成可交互的纪念网页，用滚动和点击让一群人的三年重新被看见。", poster: "media/work-web-sanban.webp", video: "", originalUrl: "", metrics: ["网页编程", "可交互"] },
@@ -147,6 +149,7 @@ window.SITE_CONTENT = {
     {
       id: "selfmedia", no: "08", title: "自媒体", en: "SELF MEDIA",
       intro: "自己的账号，也在持续做内容。",
+      illo: "media/illo-selfmedia.png",
       items: [
         { title: "游戏内容创作", platform: "自媒体 · 游戏内容", description: "在个人账号发布游戏相关内容，单条视频获得 1.3 万次浏览与 1802 个点赞。", poster: "media/work-selfmedia.webp", video: "", originalUrl: "", metrics: ["1.3w 浏览", "1802 点赞"] }
       ]

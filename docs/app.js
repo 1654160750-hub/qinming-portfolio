@@ -169,9 +169,22 @@
     const scene = make("section", `work-section scene${index % 2 ? " alt" : ""}`);
     scene.id = section.id;
     const shell = make("div", "page-shell section-shell");
-    const heading = make("div", "section-heading");
-    heading.append(make("p", "eyebrow", `${section.en} · ${section.no}`), make("h2", "", section.title));
-    if (section.intro) heading.append(make("p", "", section.intro));
+    const heading = make("div", `section-heading${section.illo ? " has-illo" : ""}`);
+    const headingText = make("div", "heading-text");
+    headingText.append(make("p", "eyebrow", `${section.en} · ${section.no}`), make("h2", "", section.title));
+    if (section.intro) headingText.append(make("p", "", section.intro));
+    heading.append(headingText);
+    if (section.illo) {
+      const illo = document.createElement("img");
+      illo.className = "section-illo";
+      illo.src = section.illo;
+      illo.alt = `${section.title}板块拼贴风人物插画`;
+      illo.loading = "lazy";
+      illo.decoding = "async";
+      illo.width = 840;
+      illo.height = 900;
+      heading.append(illo);
+    }
     shell.append(heading);
     const single = section.items.length === 1;
     const grid = make("div", single ? "work-feature" : "work-grid");
