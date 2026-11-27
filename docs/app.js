@@ -28,10 +28,6 @@
   setText("#personIntro", data.person.intro);
   setText("#footerName", data.person.name);
 
-  const heroTagline = $("#heroTagline");
-  heroTagline.replaceChildren(...data.person.tagline.map((line, index) =>
-    make("span", index ? "accent" : "", line)
-  ));
   const portrait = $("#portrait");
   portrait.src = data.person.portrait;
   portrait.alt = data.person.portraitAlt;
@@ -177,6 +173,7 @@
     if (section.intro) headingText.append(make("p", "", section.intro));
     heading.append(headingText);
     if (section.illo) {
+      const stage = make("figure", "illo-stage");
       const illo = document.createElement("img");
       illo.className = "section-illo";
       illo.src = section.illo;
@@ -185,7 +182,8 @@
       illo.decoding = "async";
       illo.width = 840;
       illo.height = 900;
-      heading.append(illo);
+      stage.append(illo);
+      heading.append(stage);
     }
     shell.append(heading);
     const single = section.items.length === 1;
