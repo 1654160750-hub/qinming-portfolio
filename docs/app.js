@@ -166,12 +166,14 @@
 
   const workRoot = $("#workSections");
   data.workSections.forEach((section, index) => {
-    const scene = make("section", `work-section scene${index % 2 ? " alt" : ""}`);
+    const scene = make("section", `work-section scene tone-${(index % 4) + 1}${index % 2 ? " alt" : ""}`);
     scene.id = section.id;
     const shell = make("div", "page-shell section-shell");
     const heading = make("div", `section-heading${section.illo ? " has-illo" : ""}`);
     const headingText = make("div", "heading-text");
-    headingText.append(make("p", "eyebrow", `${section.en} · ${section.no}`), make("h2", "", section.title));
+    const crown = make("div", `crown${section.en.length > 12 ? " long" : ""}`, section.en);
+    crown.dataset.shadow = section.en;
+    headingText.append(make("p", "eyebrow", `${section.no} / 09`), crown, make("h2", "", section.title));
     if (section.intro) headingText.append(make("p", "", section.intro));
     heading.append(headingText);
     if (section.illo) {
@@ -232,9 +234,11 @@
   sections.forEach(section => sectionObserver.observe(section));
 
   const scrollProgress = $("#scrollProgress");
+  const siteNav = $(".site-nav");
   const updateProgress = () => {
     const max = document.documentElement.scrollHeight - innerHeight;
     scrollProgress.style.width = `${max > 0 ? (scrollY / max) * 100 : 0}%`;
+    siteNav.classList.toggle("scrolled", scrollY > 24);
   };
   addEventListener("scroll", updateProgress, { passive: true });
   updateProgress();
