@@ -28,11 +28,9 @@
   <main>
     <section class="hero scene" id="hero">
       <div class="hero-bg" aria-hidden="true">
-        <span class="bg-paper"></span>
         <span class="bg-grid"></span>
         <span class="bg-circle"></span>
         <span class="bg-word">PORTFOLIO</span>
-        <span class="bg-tape tape-a"></span>
         <span class="bg-tape tape-b"></span>
       </div>
       <div class="hero-content page-shell">
@@ -50,8 +48,12 @@
           <p class="hero-intro" id="personIntro"></p>
           <div class="hero-actions" id="heroActions"></div>
         </div>
-        <figure class="portrait-wrap">
-          <img id="portrait" src="media/portrait.webp" alt="秦铭的个人照片" width="880" height="1100">
+        <figure class="portrait-wrap portrait-collage">
+          <span class="pc-paper" aria-hidden="true"></span>
+          <span class="pc-scrap scrap-a" aria-hidden="true"></span>
+          <span class="pc-scrap scrap-b" aria-hidden="true"></span>
+          <span class="pc-tape" aria-hidden="true"></span>
+          <img id="portrait" src="media/portrait-cut.png" alt="秦铭的个人照片" width="835" height="1000">
           <figcaption>QIN MING / 2026</figcaption>
         </figure>
       </div>
@@ -71,7 +73,13 @@
           <dl class="resume-basics" id="resumeBasics"></dl>
           <article class="edu-card" id="resumeEdu"></article>
         </div>
-        <div class="jobs" id="resumeJobs"></div>
+        <div class="jobs-panel">
+          <div class="jobs-head">
+            <p class="eyebrow">EXPERIENCE</p>
+            <h3>工作经历</h3>
+          </div>
+          <div class="jobs" id="resumeJobs"></div>
+        </div>
       </div>
     </section>
 
